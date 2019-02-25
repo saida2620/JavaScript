@@ -1,0 +1,62 @@
+<html>
+<head>
+  <meta charset="utf-8"/>
+
+  <title>AppWriter</title>
+
+
+  <link rel="stylesheet" href="../AppWriter/AppWriter.css">
+  <script type="text/javascript" src="../bower_components/axios/dist/axios.js"></script>
+  <script type="text/javascript" src="../dist/AppWriter.js"></script>
+
+  <script>
+   var words = [
+      'John',
+      'James',
+      'June'
+    ];
+
+    var settings = {
+      maxAmount : 10
+    };
+
+    var tree = new AppWriter(words, settings);
+
+    window.onload = function() {
+
+      var out = document.getElementById('out'),
+        field = document.getElementById('inField');
+
+      field.onkeyup = function() {
+
+        if(field.value !== '') {
+          var predictions = tree.predict(field.value);
+
+          if(predictions.length > 0) {
+            out.innerHTML = predictions.join('<br/>');
+          }
+          else {
+            out.innerHTML = '';
+          }
+        }
+        else {
+          out.innerHTML = '';
+        }
+
+      };
+    };
+  </script>
+
+</head>
+<body>
+
+  <div id="in">
+    <p> Hello, my name is<input type="text" id="inField"/>Doe and I like pie!
+  </div>
+
+  <div id="out">
+
+  </div>
+
+</body>
+</html>
